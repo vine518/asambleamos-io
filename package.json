@@ -1,0 +1,32 @@
+{
+  "name": "asambleamos-chatbot---project",
+  "version": "1.0.0",
+  "description": "chatbot para votacion de asambleas y registro de asistencia",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vine518/asambleamos-io.git"
+  },
+  "author": "vine518",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vine518/asambleamos-io/issues"
+  },
+  "homepage": "https://github.com/vine518/asambleamos-io#readme",
+  "dependencies": {
+    "@bot-whatsapp/bot": "latest",
+    "@bot-whatsapp/cli": "latest",
+    "@bot-whatsapp/database": "latest",
+    "@bot-whatsapp/portal": "latest",
+    "@bot-whatsapp/provider": "latest",
+    "@whiskeysockets/baileys": "^6.4.0",
+    "axios": "^0.27.2",
+    "express": "^4.21.1",
+    "pino": "^9.5.0",
+    "wa-sticker-formatter": "4.3.2"
+  }
+}
