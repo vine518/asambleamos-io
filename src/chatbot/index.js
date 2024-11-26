@@ -4,8 +4,6 @@ const BaileysProvider = require('@bot-whatsapp/provider/baileys')
 const MockAdapter = require('@bot-whatsapp/database/mock')
 const axios = require('axios')
 
-
-
 const flowRegistro = addKeyword(['1', 'registro', 'registrar'])
     .addAnswer('Hola, este es tu chatbot para registrarte y votar en la asamblea, necesito algunos datos.')
     .addAnswer('¿Cuál es tu nombre completo?', { capture: true }, async (ctx, { flowDynamic, gotoFlow }) => {
