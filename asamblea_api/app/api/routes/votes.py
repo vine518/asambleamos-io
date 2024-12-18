@@ -7,11 +7,7 @@
 #         return {"success": True, "message": "Voto registrado correctamente"}
 #     except Exception as e:
 #         raise HTTPException(status_code=400, detail=str(e))
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
-
-from app.core.database import get_db
-from app.schemas.vote import VoteInput
+from fastapi import APIRouter
 
 router = APIRouter()
 

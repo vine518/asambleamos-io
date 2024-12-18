@@ -12,9 +12,9 @@ from app.models.user import User
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
 
-access_token_expire_minutes = get_property("ACCESS_TOKEN_EXPIRE_MINUTES")
-jwt_secret_key = get_property("JWT_SECRET_KEY")
-algorithm = get_property("ALGORITHM")
+access_token_expire_minutes = get_property("access_token_expire_minutes")
+jwt_secret_key = get_property("jwt_secret_key")
+algorithm = get_property("algorithm")
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):

@@ -1,28 +1,29 @@
-from datetime import timedelta
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 
-from fastapi import APIRouter
-
-from app.core.auth.auth import create_access_token
 from app.core.database import get_db
-from app.core.errors.exceptions import UnauthorizedException
-from app.core.security.password_crypt import verify_password
-from app.repositories.user_repository import UserRepository
 from app.schemas.user import UserAuth
+from app.services.auth_service import AuthService
 from app.services.user_service import UserService
 
 router = APIRouter()
 
-userService = UserService(UserRepository())
+
+@router.post("/authenticate")
+def login(
+        user_auth: UserAuth,
+        auth_service: AuthService = Depends(UserService)
+):
+    return {"access_token": auth_service.authenticate(user_auth), "token_type": "bearer"}
 
 
-@router.post("/token")
-def login(user_auth: UserAuth):
-    user = userService.get_user_by_email(user_auth.email)
-    if not user or not verify_password(user_auth.password, user.hashed_password):
-        raise UnauthorizedException("Incorrect username or password")
-    access_token = create_access_token(
-        data={"sub": str(user.id)},
-        expires_delta=timedelta(minutes=30)
-    )
-    return {"access_token": access_token, "token_type": "bearer"}
+@router.post("/auth/login")
+def login(auth_data: dict, db: Session = Depends(get_db)):
+    # Authentication logic
+    return {"token": "user_token"}
 
+
+@router.post("/auth/validate-token")
+def validate_token(auth_data: dict, db: Session = Depends(get_db)):
+    # Token validation logic
+    return {"message": "Token is valid"}

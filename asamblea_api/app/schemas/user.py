@@ -1,6 +1,16 @@
+from enum import Enum
+
 from pydantic import BaseModel, EmailStr
 
 from app.core.database import Base, engine
+
+
+class UserType(Enum):
+    User = 'usuario'
+    Representative = "apoderado"
+    Owner = "propietario"
+    Assistant = "asistente"
+    Administrator = "administrador"
 
 
 class UserBase(BaseModel):
@@ -19,9 +29,6 @@ class UserAuth(BaseModel):
 
 class UserResponse(UserBase):
     id: int
-
-    class Config:
-        orm_mode = True
 
 
 Base.metadata.create_all(bind=engine)
