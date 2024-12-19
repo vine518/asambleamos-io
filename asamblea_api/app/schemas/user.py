@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 
@@ -14,21 +15,34 @@ class UserType(Enum):
 
 
 class UserBase(BaseModel):
-    name: str
-    email: EmailStr
+    full_name: Optional[str]
+    whatsapp: Optional[str]
+    phone: Optional[str]
+    email: Optional[EmailStr]
+    needs_assistance: Optional[bool]
+    role: Optional[UserType]
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
 
 
 class UserCreate(UserBase):
     password: str
 
 
+class UserUpdate(BaseModel):
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+
 class UserAuth(BaseModel):
-    email: EmailStr
     password: str
+    attendance_token: str
+    token_expiration: str
+    cookie: str
 
 
 class UserResponse(UserBase):
     id: int
-
-
-Base.metadata.create_all(bind=engine)

@@ -22,7 +22,8 @@ class Assembly(Base):
     condominium_id = Column(Integer, ForeignKey("condominiums.id"))
     state = Column(SQLEnum(AssemblyState), nullable=False)
 
-    condominium = relationship("Condominium", back_populates="assemblies")
+    condominium = relationship("Condominium", back_populates="assembly")
+    attendances = relationship("Attendance", back_populates="assembly")
     agendas = relationship("Agenda", back_populates="assembly")
     votings = relationship("Voting", back_populates="assembly")
     representations = relationship("Representation", back_populates="assembly")

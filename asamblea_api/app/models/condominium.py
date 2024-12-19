@@ -13,6 +13,6 @@ class Condominium(Base):
     legal_representative_id = Column(Integer, ForeignKey("users.id"))
     built_area = Column(Float, nullable=False)
 
-    owners = relationship("Owner", back_populates="condominium")
-    units = relationship("Unit", back_populates="condominium")
-    assemblies = relationship("Assembly", back_populates="condominium")
+    owner = relationship("Owner", back_populates="condominium")
+    unit = relationship("Unit", back_populates="condominium")
+    assembly = relationship("Assembly", back_populates="condominium")

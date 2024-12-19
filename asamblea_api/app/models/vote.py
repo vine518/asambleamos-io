@@ -15,3 +15,4 @@ class Vote(Base):
 
     user = relationship("User", back_populates="votes")
     question = relationship("VotingQuestion", back_populates="votes")
+    attorney = relationship("Attorney", back_populates="votes")

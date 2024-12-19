@@ -1,7 +1,16 @@
-from sqlalchemy import (Column, Integer, String, Boolean, Enum, DateTime, ForeignKey)
-from sqlalchemy.orm import relationship, declarative_base
+from enum import Enum
+
+from sqlalchemy import (Column, Integer, String, Boolean, Enum as SqlEnum, DateTime)
+from sqlalchemy.orm import relationship
 
 from app.core.database import Base
+
+
+class UserRole(Enum):
+    OWNER = "owner"
+    ATTORNEY = "attorney"
+    ASSISTANT = "assistant"
+    ADMIN = "admin"
 
 
 # Models
@@ -19,37 +28,9 @@ class User(Base):
     attendance_token = Column(String, nullable=True)
     token_expiration = Column(DateTime, nullable=True)
     cookie = Column(String, nullable=True)
+    role = Column(SqlEnum(UserRole), default=UserRole.OWNER, nullable=False)
 
-    owners = relationship("Owner", back_populates="users")
-    attorneys = relationship("Attorney", back_populates="users")
-    attendances = relationship("Attendance", back_populates="users")
-    votes = relationship("Vote", back_populates="users")
-
-
-class Owner(Base):
-    __tablename__ = "owners"
-
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    condominium_id = Column(Integer, ForeignKey("condominiums.id"))
-
-    users = relationship("User", back_populates="owners")
-    condominium = relationship("Condominium", back_populates="owners")
-    units = relationship("Unit", back_populates="owners")
-    attendances = relationship("Attendance", back_populates="owners")
-    representations = relationship("Representation", back_populates="owners")
-
-
-class Attorney(Base):
-    __tablename__ = "attorneys"
-
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    owner_id = Column(Integer, ForeignKey("owners.id"))
-
-    users = relationship("User", back_populates="attorneys")
-    owner = relationship("Owner", back_populates="attorney")
-    attendances = relationship("Attendance", back_populates="attorney")
-    votes = relationship("Vote", back_populates="attorney")
-    representations = relationship("Representation", back_populates="attorney")
-
+    owner = relationship("Owner", back_populates="user")
+    attorney = relationship("Attorney", back_populates="user")
+    attendances = relationship("Attendance", back_populates="user")
+    votes = relationship("Vote", back_populates="user")

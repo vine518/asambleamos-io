@@ -28,6 +28,7 @@ class UserSchema(UserBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 # Assembly Schemas
 class AssemblyBase(BaseModel):
@@ -42,6 +43,7 @@ class AssemblySchema(AssemblyBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 # Copropiedad Schemas
 class CopropiedadBase(BaseModel):
@@ -55,6 +57,7 @@ class CopropiedadSchema(CopropiedadBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 # Unit Schemas
 class UnitBase(BaseModel):
@@ -70,6 +73,7 @@ class UnitSchema(UnitBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 # Votation Schemas
 class VotationBase(BaseModel):
@@ -83,6 +87,7 @@ class VotationSchema(VotationBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 # Vote Schemas
 class VoteBase(BaseModel):
@@ -96,6 +101,7 @@ class VoteSchema(VoteBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 # Notification Schema
 class NotificationSchema(BaseModel):
@@ -121,6 +127,7 @@ class AgendaSchema(AgendaBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 # Voting Question Schemas
 class VotingQuestionBase(BaseModel):
@@ -132,6 +139,7 @@ class VotingQuestionSchema(VotingQuestionBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 # Attendance Schemas
 class AttendanceBase(BaseModel):
@@ -144,6 +152,7 @@ class AttendanceSchema(AttendanceBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 # Address Schema
 class AddressSchema(BaseModel):
@@ -180,6 +189,7 @@ class OwnerSchema(OwnerBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 class CondominiumSchema(CondominiumBase):
     id: int
@@ -189,5 +199,6 @@ class CondominiumSchema(CondominiumBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 

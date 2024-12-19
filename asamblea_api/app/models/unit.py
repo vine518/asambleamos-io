@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 from app.core.database import Base
 
 
-class UnitType(Enum):
+class UnitType(str, Enum):
     APARTMENT = "apartment"
     PARKING = "parking"
     HOUSE = "house"
@@ -23,5 +23,5 @@ class Unit(Base):
     owner_id = Column(Integer, ForeignKey("owners.id"))
     condominium_id = Column(Integer, ForeignKey("condominiums.id"))
 
-    owner = relationship("Owner", back_populates="units")
-    condominium = relationship("Condominium", back_populates="units")
+    owner = relationship("Owner", back_populates="unit")
+    condominium = relationship("Condominium", back_populates="unit")
