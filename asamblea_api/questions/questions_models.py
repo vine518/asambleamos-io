@@ -1,6 +1,7 @@
 # from sqlalchemy import create_engine, Column, Integer, String
 # from sqlalchemy.ext.declarative import declarative_base
 # from sqlalchemy.orm import sessionmaker
+# from enum import Enum
 #
 # SQLALCHEMY_DATABASE_URL = "sqlite:///./votaciones.db"
 #
@@ -9,13 +10,17 @@
 #
 # Base = declarative_base()
 #
-# class User(Base):
-#     __tablename__ = "users"
+# class QuestionType(Enum):
+#      YES_NO = 1
+#      CUSTOM = 2
+#
+# class Questions(Base):
+#     __tablename__ = "questions"
 #
 #     id = Column(Integer, primary_key=True, index=True)
-#     nombre = Column(String, unique=True, index=True)
+#     content = Column(String)
+#     type = Column(String)
 #
 # Base.metadata.create_all(bind=engine)
 #
 # db = SessionLocal()
-#
