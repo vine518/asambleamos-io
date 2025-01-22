@@ -1,6 +1,6 @@
 from enum import Enum
 
-from sqlalchemy import Integer, String, DateTime, Column, ForeignKey, Enum as SQLEnum
+from sqlalchemy import Integer, String, Column, ForeignKey, TIMESTAMP
 from sqlalchemy.orm import relationship
 
 from app.core.database import Base
@@ -15,15 +15,16 @@ class AssemblyState(Enum):
 
 class Assembly(Base):
     __tablename__ = "assemblies"
-
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    date = Column(DateTime, nullable=False)
-    condominium_id = Column(Integer, ForeignKey("condominiums.id"))
-    state = Column(SQLEnum(AssemblyState), nullable=False)
+    name = Column(String(255), nullable=False)
+    date = Column(TIMESTAMP, nullable=False)
+    condominium_id = Column(Integer, ForeignKey("condominiums.id", ondelete="CASCADE"), nullable=False)
+    state = Column(String(50), default="scheduled")
 
-    condominium = relationship("Condominium", back_populates="assembly")
     attendances = relationship("Attendance", back_populates="assembly")
+    condominium = relationship("Condominium", back_populates="assemblies")
     agendas = relationship("Agenda", back_populates="assembly")
-    votings = relationship("Voting", back_populates="assembly")
     representations = relationship("Representation", back_populates="assembly")
+    votings = relationship("Voting", back_populates="assembly")
+
+

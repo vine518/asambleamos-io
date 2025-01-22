@@ -1,7 +1,14 @@
+import logging
+
 from fastapi import FastAPI
 
 from app.api.routes import users, auth, sse, assembly, coproperties, notification, units, votations
 from app.core.database import Base, engine
+
+
+logging.basicConfig()
+logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
+
 
 app = FastAPI()
 
@@ -16,5 +23,6 @@ app.include_router(units.router, prefix="/units", tags=["Units"])
 app.include_router(votations.router, prefix="/votations", tags=["Votations"])
 
 
+#Base.metadata.drop_all(bind=engine)
 #Base.metadata.drop_all(bind=engine)
 Base.metadata.create_all(bind=engine)

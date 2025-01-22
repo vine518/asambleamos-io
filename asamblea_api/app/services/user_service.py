@@ -35,7 +35,7 @@ class UserService:
         # Devolver un modelo de respuesta compatible con Pydantic
         return UserResponse.from_orm(created_user)
 
-    def update_user(self,email: str, user_update: UserUpdate) -> UserResponse:
+    def update_user(self, email: str, user_update: UserUpdate) -> User:
         user_f = self.get_user_by_email(email)
         return self.user_repository.update_user(user_f, user_update)
 

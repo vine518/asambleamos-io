@@ -34,14 +34,13 @@ class UserRepository:
         return self.db.query(User).filter_by(id=id).first()
 
     def update_user(self, user_f: User, user_update: UserUpdate) -> User:
-        if not user_f:
-            raise ValueError("The user instance is invalid.")
-
-        # Update only the fields present in the request
-        for key, value in user_update.dict(exclude_unset=True).items():
-            setattr(user_f, key, value)
-
         try:
+            if not user_f:
+                raise ValueError("The user instance is invalid.")
+        # Update only the fields present in the request
+            for key, value in user_update.dict(exclude_unset=True).items():
+                setattr(user_f, key, value)
+
             # Commit the changes
             self.db.commit()
             # Refresh the instance to get the latest state

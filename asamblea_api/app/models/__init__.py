@@ -1,25 +1,27 @@
 # models/__init__.py
 
-# Ensure logical grouping to avoid circular dependencies
-# 1. Core models
+# Import all models here
+from .unit import Unit
+from .person import Person
+from .role import Role
 from .user import User
-from .condominium import Condominium
-
-# 2. Ownership and representation
+from .identity_provider import IdentityProvider
+from .user_identity import UserIdentity
 from .owner import Owner
-from .attendance import Attendance
 from .representation import Representation
-
-# 3. Assemblies and agendas
+from .condominium import Condominium
 from .assembly import Assembly
 from .agenda import Agenda
-
-# 4. Voting
+from .agenda_item import AgendaItem
 from .voting import Voting
 from .voting_question import VotingQuestion
 from .vote import Vote
-
-# 5. Attorneys (if applicable)
+from .attendance import Attendance
 from .attorney import Attorney
+from .common_area import CommonArea
+from .booking import Booking
+from .notification import Notification
+from .access_log import AccessLog
+from .expense import Expense
 
-# Add other models as needed
+# Logical grouping ensures circular dependency resolution and maintainability.

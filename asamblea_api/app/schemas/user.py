@@ -1,17 +1,8 @@
-from enum import Enum
 from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 
-from app.core.database import Base, engine
-
-
-class UserType(Enum):
-    User = 'usuario'
-    Representative = "apoderado"
-    Owner = "propietario"
-    Assistant = "asistente"
-    Administrator = "administrador"
+from app.models.user import UserRole
 
 
 class UserBase(BaseModel):
@@ -20,7 +11,7 @@ class UserBase(BaseModel):
     phone: Optional[str]
     email: Optional[EmailStr]
     needs_assistance: Optional[bool]
-    role: Optional[UserType]
+    role: Optional[UserRole]
 
     class Config:
         orm_mode = True
@@ -31,7 +22,7 @@ class UserCreate(UserBase):
     password: str
 
 
-class UserUpdate(BaseModel):
+class UserUpdate(UserBase):
     class Config:
         orm_mode = True
         from_attributes = True

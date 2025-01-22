@@ -1,7 +1,10 @@
+import logging
+
 from fastapi import APIRouter, Depends
 
 from app.core.dependecies import get_service
 from app.core.errors.exceptions import BadRequestException
+from app.core.logger import logger
 from app.schemas.user import UserResponse, UserCreate, UserUpdate
 from app.services.user_service import UserService
 
@@ -39,6 +42,7 @@ def get_user(id: str, user_service: UserService = Depends(get_service)):
 
 @router.put("/{email}", response_model=UserResponse)
 def update_user(email: str, user: UserUpdate, user_service: UserService = Depends(get_service)):
+    logger.info("Updating User data:",user)
     return UserResponse.from_orm(user_service.update_user(email, user))
 
 

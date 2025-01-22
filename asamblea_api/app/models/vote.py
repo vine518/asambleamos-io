@@ -1,18 +1,22 @@
-from sqlalchemy import Column, Integer, ForeignKey, String, DateTime
+from datetime import datetime
+
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import TIMESTAMP
 from sqlalchemy.orm import relationship
 
 from app.core.database import Base
+from app.models import Unit
 
 
 class Vote(Base):
     __tablename__ = "votes"
-
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    question_id = Column(Integer, ForeignKey("voting_questions.id"))
-    answer = Column(String, nullable=False)
-    timestamp = Column(DateTime, nullable=False)
+    unit_id = Column(Integer, ForeignKey("units.id", ondelete="CASCADE"), nullable=False)
+    question_id = Column(Integer, ForeignKey("voting_questions.id", ondelete="CASCADE"), nullable=False)
+    answer = Column(String(255), nullable=False)
+    timestamp = Column(TIMESTAMP, default=datetime.utcnow)
 
-    user = relationship("User", back_populates="votes")
+    unit = relationship("Unit", back_populates="votes")
     question = relationship("VotingQuestion", back_populates="votes")
-    attorney = relationship("Attorney", back_populates="votes")
+
+

@@ -2,10 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.models.agenda import Agenda
-from app.models.assembly import Assembly
-from app.models.representation import Representation
-from app.schemas.vote import RepresentationSchema, AgendaSchema, AssemblySchema
+from app.models.agenda import Agenda as AgendaModel
+from app.models.assembly import Assembly as AssemblyModel
+from app.models.representation import Representation as RepresentationModel
+from app.schemas.schema import Assembly, , AssemblySchema
 
 router = APIRouter()
 
@@ -16,7 +16,7 @@ def get_assemblies(db: Session = Depends(get_db)):
 
 
 @router.post("/assemblies", response_model=AssemblySchema)
-def create_assembly(assembly: AssemblySchema, db: Session = Depends(get_db)):
+def create_assembly(assembly: Assembly, db: Session = Depends(get_db)):
     new_assembly = Assembly(**assembly.dict())
     db.add(new_assembly)
     db.commit()
